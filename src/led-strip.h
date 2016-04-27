@@ -22,15 +22,8 @@ public:
     void setLeds(ofColor color);
     void calibrateLed(int led, ofVec2f pixel);
     void blackout();
+    
 //private:
     vector<ofColor> pixels;
-    ofPoint pos;
-    float angle;
-    ofPoint axis;
-    
     vector<ofVec2f> pixelToLed;
-    
-    vector<vector<ofPoint> > blobs;
-    
-
 };

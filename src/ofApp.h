@@ -7,6 +7,9 @@
 #include "ofxGui.h"
 #include "ofxCsv.h"
 
+struct LEDtoPixel {
+    int strip, led, x, y;
+};
 
 class ofApp : public ofBaseApp{
 
@@ -31,8 +34,7 @@ class ofApp : public ofBaseApp{
     ofxOPC opcClient;
     
     vector<ledStrip> strips;
-    ofEasyCam cam;
-    
+    vector<LEDtoPixel> calibrationData;
     //calibration
     int w; //cam width
     int h; //cam height

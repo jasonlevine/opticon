@@ -29,14 +29,6 @@ void ledStrip::update(ofPixels &framePix, float maxBrightness){
 
 
 void ledStrip::draw(){
-    for (int i = 0; i < blobs.size(); i++){
-        ofSetColor(pixels[i]);
-        ofBeginShape();
-        for (int j = 0; j < blobs[i].size(); j++){
-            ofVertex(blobs[i][j]);
-        }
-        ofEndShape();
-    }
 }
 
 

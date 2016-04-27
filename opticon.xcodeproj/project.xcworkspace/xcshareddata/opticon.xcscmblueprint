@@ -1,0 +1,37 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "FA9AD8D17DE317E54DF4B345D284181C6860A00B",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "124CCB9B44A9FE82887AA6F64CCD17FE54B342A7" : 0,
+    "31E280106F6B078BEC34817BA46938F466369C05" : 0,
+    "FA9AD8D17DE317E54DF4B345D284181C6860A00B" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "6A5A1183-23BD-4C22-8442-695B4010C921",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "124CCB9B44A9FE82887AA6F64CCD17FE54B342A7" : "..\/..\/addons\/ofxCsv",
+    "31E280106F6B078BEC34817BA46938F466369C05" : "..\/..\/addons\/ofxOPC",
+    "FA9AD8D17DE317E54DF4B345D284181C6860A00B" : "opticon\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "opticon",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "opticon.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/paulvollmer\/ofxCsv.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "124CCB9B44A9FE82887AA6F64CCD17FE54B342A7"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/DHaylock\/ofxOPC.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "31E280106F6B078BEC34817BA46938F466369C05"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/jasonlevine\/opticon.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "FA9AD8D17DE317E54DF4B345D284181C6860A00B"
+    }
+  ]
+}
