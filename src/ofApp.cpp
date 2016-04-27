@@ -160,7 +160,7 @@ void ofApp::update(){
                     for (int i = 0; i < calibrationData.size(); i++){
                         if (calibrationData[i].x != -1){
                             calibrationData[i].x -= minX;
-                            calibrationData[i].x /= (maxX - minX);
+                            calibrationData[i].x /= (maxY - minY);
                             calibrationData[i].y -= minY;
                             calibrationData[i].y /= (maxY - minY);
                         }
@@ -223,14 +223,10 @@ void ofApp::exit(){
     for (int i = 0; i < strips.size(); i++){
         strips[i].blackout();
     }
-    
 }
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
-    if (key == ' '){
-        cam.setPosition(59.733, 616.15, 1115.26);
-    }
     
     if (key == 'c'){
         calibrate = true;

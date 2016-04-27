@@ -29,6 +29,7 @@ void ledStrip::update(ofPixels &framePix, float maxBrightness){
 
 
 void ledStrip::draw(){
+    
 }
 
 
