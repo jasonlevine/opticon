@@ -19,9 +19,14 @@ void ledStrip::setup(int num){
 //TODO: make mode where video is cropped and centered instead of stretched
 void ledStrip::update(ofPixels &framePix, float maxBrightness){
     for (int i = 0; i < pixels.size(); i++){
-        int x = pixelToLed[i].x * 1.3333 * framePix.getWidth() - 0.1666 * framePix.getWidth();
-        int y = pixelToLed[i].y * framePix.getHeight();
-        pixels[i] = framePix.getColor(x, y) * maxBrightness;
+        if (pixelToLed[i].x != -1) { //oh jesus its late and i just want it to work
+            int x = pixelToLed[i].x * framePix.getWidth();
+            int y = pixelToLed[i].y * framePix.getHeight();
+            pixels[i] = framePix.getColor(x, y) * maxBrightness;
+        }
+        else {
+            pixels[i] = ofColor(0);
+        }
     }
     
     //cout << pixelToLed[0].x * framePix.getWidth()  << endl;

@@ -1,6 +1,6 @@
 #include "ofApp.h"
 #define NUMLEDS 60
-#define NUMSTRIPS 24
+//#define NUMSTRIPS 24
 
 //--------------------------------------------------------------
 void ofApp::setup(){
@@ -10,7 +10,7 @@ void ofApp::setup(){
     //setup grabber and cv
     w = 1280;
     h = 800;
-    grabber.initGrabber(w,h);
+    grabber.setup(w,h);
 
     colorImg.allocate(w, h);
     grayImage.allocate(w, h);
@@ -18,11 +18,11 @@ void ofApp::setup(){
     grayDiff.allocate(w, h);
     
     // start video
-    video.load("renders/small movie 05.mp4");
+    video.load("renders/small movie 07.mp4");
     video.play();
     
     //setup strips
-    for (int i = 0; i < NUMSTRIPS; i++){
+    for (int i = 0; i < 24; i++){
         ledStrip strip;
         strip.setup(NUMLEDS);
         strips.push_back(strip);
@@ -112,8 +112,8 @@ void ofApp::update(){
                 ofPoint centroid = contourFinder.blobs[0].centroid;
                 
 
-                pixel.x = centroid.x / w;
-                pixel.y = centroid.y / h;
+                pixel.x = centroid.x;
+                pixel.y = centroid.y;
                 
                 //assign pixel pos to strip calibration
 //                strips[calibratingStrip].calibrateLed(calibratingLed, pixel);
@@ -156,13 +156,22 @@ void ofApp::update(){
                         }
                     }
                     
+                    //the opticon is taller than it is wide. We want it to take pixels formt the center of the image.
+                    int opticonHeight = maxY - minY;
+                    int opticonWidth = maxX - minX;
+                    float theoreticalWidth = float(w) / float(h) * opticonHeight;
+                    float padding = (theoreticalWidth - opticonWidth)*0.5;
+                    
+                    
                     // scale and translate points
                     for (int i = 0; i < calibrationData.size(); i++){
                         if (calibrationData[i].x != -1){
                             calibrationData[i].x -= minX;
-                            calibrationData[i].x /= (maxY - minY);
+//                            calibrationData[i].x /= opticonWidth;
+                            calibrationData[i].x += padding;
+                            calibrationData[i].x /= theoreticalWidth;
                             calibrationData[i].y -= minY;
-                            calibrationData[i].y /= (maxY - minY);
+                            calibrationData[i].y /= opticonHeight;
                         }
                     }
                     

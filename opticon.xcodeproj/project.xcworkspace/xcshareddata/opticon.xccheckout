@@ -6,26 +6,34 @@
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
 	<string>6A5A1183-23BD-4C22-8442-695B4010C921</string>
+	<key>IDESourceControlProjectName</key>
+	<string>opticon</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>124CCB9B44A9FE82887AA6F64CCD17FE54B342A7</key>
 		<string>https://github.com/paulvollmer/ofxCsv.git</string>
 		<key>31E280106F6B078BEC34817BA46938F466369C05</key>
 		<string>https://github.com/DHaylock/ofxOPC.git</string>
+		<key>FA9AD8D17DE317E54DF4B345D284181C6860A00B</key>
+		<string>https://github.com/jasonlevine/opticon.git</string>
 	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>opticon.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>124CCB9B44A9FE82887AA6F64CCD17FE54B342A7</key>
-		<string>ofxCsv/</string>
+		<string>../../../../../addons/ofxCsv</string>
 		<key>31E280106F6B078BEC34817BA46938F466369C05</key>
-		<string>ofxOPC/</string>
+		<string>../../../../../addons/ofxOPC</string>
+		<key>FA9AD8D17DE317E54DF4B345D284181C6860A00B</key>
+		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>https://github.com/DHaylock/ofxOPC.git</string>
+	<string>https://github.com/jasonlevine/opticon.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>31E280106F6B078BEC34817BA46938F466369C05</string>
+	<string>FA9AD8D17DE317E54DF4B345D284181C6860A00B</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
@@ -43,6 +51,14 @@
 			<string>31E280106F6B078BEC34817BA46938F466369C05</string>
 			<key>IDESourceControlWCCName</key>
 			<string>ofxOPC</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>FA9AD8D17DE317E54DF4B345D284181C6860A00B</string>
+			<key>IDESourceControlWCCName</key>
+			<string>opticon</string>
 		</dict>
 	</array>
 </dict>
