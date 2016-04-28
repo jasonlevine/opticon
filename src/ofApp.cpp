@@ -4,6 +4,7 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
+
     opcClient.setup("127.0.0.1", 7890);
     
     
@@ -167,15 +168,15 @@ void ofApp::update(){
                     }
                     
                     // save settings
-                    for (int i = 0; i < calibrationData.size(); i++){
-                        int row = calibrationData[i].strip * NUMLEDS + calibrationData[i].led;
-                        settings.setInt(row, 0, calibrationData[i].strip);
-                        settings.setInt(row, 1, calibrationData[i].led);
-                        settings.setFloat(row, 2, calibrationData[i].x);
-                        settings.setFloat(row, 3, calibrationData[i].y);
-                    }
+                   // for (int i = 0; i < calibrationData.size(); i++){
+                     //   int row = calibrationData[i].strip * NUMLEDS + calibrationData[i].led;
+                      //  settings.setInt(row, 0, calibrationData[i].strip);
+                       // settings.setInt(row, 1, calibrationData[i].led);
+                       // settings.setFloat(row, 2, calibrationData[i].x);
+                      //  settings.setFloat(row, 3, calibrationData[i].y);
+                   // }
                     
-                    settings.saveFile(ofToDataPath("settings.csv"));
+                  //  settings.saveFile(ofToDataPath("settings.csv"));
                     
                     //done
                     calibrate = false;

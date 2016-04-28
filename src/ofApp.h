@@ -3,7 +3,7 @@
 #include "ofMain.h"
 #include "ofxOpenCv.h"
 #include "led-strip.h"
-#include "ofxOpc.h"
+#include "ofxOPC.h"
 #include "ofxGui.h"
 #include "ofxCsv.h"
 
@@ -54,7 +54,7 @@ class ofApp : public ofBaseApp{
     ofParameter<int> threshold;
     ofParameter<float> maxLedBrightness;
     
-    wng::ofxCsv settings;
+    ofxCsv settings;
     
     
     //video
