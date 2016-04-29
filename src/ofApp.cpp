@@ -1,6 +1,7 @@
 #include "ofApp.h"
+
 #define NUMLEDS 60
-//#define NUMSTRIPS 24
+#define NUMSTRIPS 24
 
 //--------------------------------------------------------------
 void ofApp::setup(){
@@ -22,14 +23,15 @@ void ofApp::setup(){
     video.play();
     
     //setup strips
-    for (int i = 0; i < 24; i++){
+    for (int i = 0; i < NUMSTRIPS; i++){
         ledStrip strip;
         strip.setup(NUMLEDS);
         strips.push_back(strip);
     }
+    
+    loadSettings();
 
     //load last calibration
-//    settings.loadFile(ofToDataPath("settings.csv"));
     
 //    ofVec2f uncalibrated = ofVec2f(0.5,0.5);
 //    int start = 0;
@@ -57,14 +59,7 @@ void ofApp::setup(){
 //            start = 0; end = 0;
 //        }
 //    }
-//    
-//    for (int i = 0; i < strips.size() * NUMLEDS; i++){
-//        int strip = settings.getInt(i, 0);
-//        int led = settings.getInt(i, 1);
-//        ofVec2f pixel = ofVec2f(settings.getFloat(i, 2), settings.getFloat(i,3));
-//        
-//        strips[strip].calibrateLed(led, pixel);
-//    }
+//
     
     //setup gui
     threshold.set("calib threshold", 200, 127, 254);
@@ -189,16 +184,7 @@ void ofApp::update(){
                             ofVec2f(calibrationData[i].x, calibrationData[i].y));
                     }
                     // save settings
-//                    for (int i = 0; i < calibrationData.size(); i++){
-//                        int row = calibrationData[i].strip * NUMLEDS + calibrationData[i].led;
-//                        settings.setInt(row, 0, calibrationData[i].strip);
-//                        settings.setInt(row, 1, calibrationData[i].led);
-//                        settings.setFloat(row, 2, calibrationData[i].x);
-//                        settings.setFloat(row, 3, calibrationData[i].y);
-//                    }
-////
-//                    settings.saveFile(ofToDataPath("settings.csv"));
-                    
+                    saveSettings();
                     //done
                     calibrate = false;
                 }
@@ -247,6 +233,28 @@ void ofApp::exit(){
     }
 }
 
+//--------------------------------------------------------------
+void ofApp::loadSettings(){
+    settings.loadFile(ofToDataPath("settings.csv"));
+    for (int i = 0; i < strips.size() * NUMLEDS; i++){
+        int strip = settings.getInt(i, 0);
+        int led = settings.getInt(i, 1);
+        ofVec2f pixel = ofVec2f(settings.getFloat(i, 2), settings.getFloat(i,3));
+        
+        strips[strip].calibrateLed(led, pixel);
+    }
+}
+ //--------------------------------------------------------------
+void ofApp::saveSettings(){
+    for (int i = 0; i < calibrationData.size(); i++){
+        int row = calibrationData[i].strip * NUMLEDS + calibrationData[i].led;
+        settings.setInt(row, 0, calibrationData[i].strip);
+        settings.setInt(row, 1, calibrationData[i].led);
+        settings.setFloat(row, 2, calibrationData[i].x);
+        settings.setFloat(row, 3, calibrationData[i].y);
+    }
+    settings.saveFile(ofToDataPath("settings.csv"));
+}
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
     
