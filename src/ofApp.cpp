@@ -29,7 +29,7 @@ void ofApp::setup(){
     }
 
     //load last calibration
-    settings.loadFile(ofToDataPath("settings.csv"));
+//    settings.loadFile(ofToDataPath("settings.csv"));
     
 //    ofVec2f uncalibrated = ofVec2f(0.5,0.5);
 //    int start = 0;
@@ -57,14 +57,14 @@ void ofApp::setup(){
 //            start = 0; end = 0;
 //        }
 //    }
-    
-    for (int i = 0; i < strips.size() * NUMLEDS; i++){
-        int strip = settings.getInt(i, 0);
-        int led = settings.getInt(i, 1);
-        ofVec2f pixel = ofVec2f(settings.getFloat(i, 2), settings.getFloat(i,3));
-        
-        strips[strip].calibrateLed(led, pixel);
-    }
+//    
+//    for (int i = 0; i < strips.size() * NUMLEDS; i++){
+//        int strip = settings.getInt(i, 0);
+//        int led = settings.getInt(i, 1);
+//        ofVec2f pixel = ofVec2f(settings.getFloat(i, 2), settings.getFloat(i,3));
+//        
+//        strips[strip].calibrateLed(led, pixel);
+//    }
     
     //setup gui
     threshold.set("calib threshold", 200, 127, 254);
@@ -157,34 +157,47 @@ void ofApp::update(){
                     }
                     
                     //the opticon is taller than it is wide. We want it to take pixels formt the center of the image.
+                    
+                    
                     int opticonHeight = maxY - minY;
                     int opticonWidth = maxX - minX;
                     float theoreticalWidth = float(w) / float(h) * opticonHeight;
                     float padding = (theoreticalWidth - opticonWidth)*0.5;
+                    
+                    cout << "x: " << minX << " " << maxX << endl
+                         << "y: " << minY << " " << maxY << endl
+                         << "w: " << opticonWidth << " h: " << opticonHeight << "H: " << theoreticalWidth << endl;
+                    
                     
                     
                     // scale and translate points
                     for (int i = 0; i < calibrationData.size(); i++){
                         if (calibrationData[i].x != -1){
                             calibrationData[i].x -= minX;
-//                            calibrationData[i].x /= opticonWidth;
+                            
                             calibrationData[i].x += padding;
-                            calibrationData[i].x /= theoreticalWidth;
+                            calibrationData[i].x /= opticonHeight;
+//                            calibrationData[i].x /= theoreticalWidth;
                             calibrationData[i].y -= minY;
                             calibrationData[i].y /= opticonHeight;
                         }
                     }
                     
-                    // save settings
                     for (int i = 0; i < calibrationData.size(); i++){
-                        int row = calibrationData[i].strip * NUMLEDS + calibrationData[i].led;
-                        settings.setInt(row, 0, calibrationData[i].strip);
-                        settings.setInt(row, 1, calibrationData[i].led);
-                        settings.setFloat(row, 2, calibrationData[i].x);
-                        settings.setFloat(row, 3, calibrationData[i].y);
+                        strips[calibrationData[i].strip].calibrateLed(
+                            calibrationData[i].led,
+                            ofVec2f(calibrationData[i].x, calibrationData[i].y));
                     }
-                    
-                    settings.saveFile(ofToDataPath("settings.csv"));
+                    // save settings
+//                    for (int i = 0; i < calibrationData.size(); i++){
+//                        int row = calibrationData[i].strip * NUMLEDS + calibrationData[i].led;
+//                        settings.setInt(row, 0, calibrationData[i].strip);
+//                        settings.setInt(row, 1, calibrationData[i].led);
+//                        settings.setFloat(row, 2, calibrationData[i].x);
+//                        settings.setFloat(row, 3, calibrationData[i].y);
+//                    }
+////
+//                    settings.saveFile(ofToDataPath("settings.csv"));
                     
                     //done
                     calibrate = false;
