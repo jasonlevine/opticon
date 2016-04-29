@@ -81,116 +81,8 @@ void ofApp::update(){
     grayImage = colorImg;
     grayImage.threshold(threshold);
     
-    if (calibrate){
-        //turn on each led one at a time
-        for (int i = 0; i < strips.size(); i++) strips[i].setLeds(ofColor(0));
-        
-        strips[calibratingStrip].setLed(calibratingLed, ofColor(200));
-        
-        for (int i = 0; i < strips.size(); i++) opcClient.writeChannel(i+1, strips[i].pixels);
-        
-        if (ofGetFrameNum() % 5 == 0){
-            //get pixels
-            colorImg.setFromPixels(grabber.getPixels());
-            
-            //find contours
-            grayImage = colorImg;
-    //        grayDiff.absDiff(grayBg, grayImage);
-            grayImage.threshold(threshold);
-            contourFinder.findContours(grayImage, 3, (w*h)/3, 10, false);
-            
-            ofPoint pixel = ofPoint(-1, -1);
-            
-            if (contourFinder.blobs.size()){
-                
-                //map centroid to movie dims
-                ofPoint centroid = contourFinder.blobs[0].centroid;
-                
-
-                pixel.x = centroid.x;
-                pixel.y = centroid.y;
-                
-                //assign pixel pos to strip calibration
-//                strips[calibratingStrip].calibrateLed(calibratingLed, pixel);
-                
-                
-                cout << "MAPPED " << calibratingStrip << " - " << calibratingLed <<  " to " << pixel << endl;
-                
-            }
-            
-            //save data in temp data structure
-            LEDtoPixel temp;
-            temp.strip = calibratingStrip;
-            temp.led = calibratingLed;
-            temp.x = pixel.x;
-            temp.y = pixel.y;
-            
-            calibrationData.push_back(temp);
-            
-            //next LED
-            calibratingLed++;
-            if (calibratingLed == NUMLEDS){
-                //next Strip
-                calibratingLed = 0;
-                calibratingStrip++;
-                
-                //done calibrating
-                if (calibratingStrip == strips.size()) {
-                    // find min/max
-                    int maxX = 0;
-                    int minX = w;
-                    int maxY = 0;
-                    int minY = h;
-                    
-                    for (int i = 0; i < calibrationData.size(); i++){
-                        if (calibrationData[i].x != -1){
-                            if (calibrationData[i].x > maxX) maxX = calibrationData[i].x;
-                            else if (calibrationData[i].x < minX) minX = calibrationData[i].x;
-                            if (calibrationData[i].y > maxY) maxY = calibrationData[i].y;
-                            else if (calibrationData[i].y < minY) minY = calibrationData[i].y;
-                        }
-                    }
-                    
-                    //the opticon is taller than it is wide. We want it to take pixels formt the center of the image.
-                    
-                    
-                    int opticonHeight = maxY - minY;
-                    int opticonWidth = maxX - minX;
-                    float theoreticalWidth = float(w) / float(h) * opticonHeight;
-                    float padding = (theoreticalWidth - opticonWidth)*0.5;
-                    
-                    cout << "x: " << minX << " " << maxX << endl
-                         << "y: " << minY << " " << maxY << endl
-                         << "w: " << opticonWidth << " h: " << opticonHeight << "H: " << theoreticalWidth << endl;
-                    
-                    
-                    
-                    // scale and translate points
-                    for (int i = 0; i < calibrationData.size(); i++){
-                        if (calibrationData[i].x != -1){
-                            calibrationData[i].x -= minX;
-                            
-                            calibrationData[i].x += padding;
-                            calibrationData[i].x /= opticonHeight;
-//                            calibrationData[i].x /= theoreticalWidth;
-                            calibrationData[i].y -= minY;
-                            calibrationData[i].y /= opticonHeight;
-                        }
-                    }
-                    
-                    for (int i = 0; i < calibrationData.size(); i++){
-                        strips[calibrationData[i].strip].calibrateLed(
-                            calibrationData[i].led,
-                            ofVec2f(calibrationData[i].x, calibrationData[i].y));
-                    }
-                    // save settings
-                    saveSettings();
-                    //done
-                    calibrate = false;
-                }
-            }
-        }
-    
+    if (bCalibrate){
+        calibrate();
     }
     else {
         video.update();
@@ -209,7 +101,7 @@ void ofApp::update(){
 //--------------------------------------------------------------
 void ofApp::draw(){
 
-    if (calibrate) {
+    if (bCalibrate) {
         //colorImg.draw(0,0);
         ofBackground(25);
         grayImage.draw(0,0);
@@ -255,11 +147,124 @@ void ofApp::saveSettings(){
     }
     settings.saveFile(ofToDataPath("settings.csv"));
 }
+
+//--------------------------------------------------------------
+void ofApp::calibrate(){
+    //turn on each led one at a time
+    for (int i = 0; i < strips.size(); i++) strips[i].setLeds(ofColor(0));
+
+    strips[calibratingStrip].setLed(calibratingLed, ofColor(200));
+
+    for (int i = 0; i < strips.size(); i++) opcClient.writeChannel(i+1, strips[i].pixels);
+
+    if (ofGetFrameNum() % 5 == 0){
+        //get pixels
+        colorImg.setFromPixels(grabber.getPixels());
+        
+        //find contours
+        grayImage = colorImg;
+    //        grayDiff.absDiff(grayBg, grayImage);
+        grayImage.threshold(threshold);
+        contourFinder.findContours(grayImage, 3, (w*h)/3, 10, false);
+        
+        ofPoint pixel = ofPoint(-1, -1);
+        
+        if (contourFinder.blobs.size()){
+            
+            //map centroid to movie dims
+            ofPoint centroid = contourFinder.blobs[0].centroid;
+            
+
+            pixel.x = centroid.x;
+            pixel.y = centroid.y;
+            
+            //assign pixel pos to strip calibration
+    //                strips[calibratingStrip].calibrateLed(calibratingLed, pixel);
+            
+            
+            cout << "MAPPED " << calibratingStrip << " - " << calibratingLed <<  " to " << pixel << endl;
+            
+        }
+        
+        //save data in temp data structure
+        LEDtoPixel temp;
+        temp.strip = calibratingStrip;
+        temp.led = calibratingLed;
+        temp.x = pixel.x;
+        temp.y = pixel.y;
+        
+        calibrationData.push_back(temp);
+        
+        //next LED
+        calibratingLed++;
+        if (calibratingLed == NUMLEDS){
+            //next Strip
+            calibratingLed = 0;
+            calibratingStrip++;
+            
+            //done calibrating
+            if (calibratingStrip == strips.size()) {
+                // find min/max
+                int maxX = 0;
+                int minX = w;
+                int maxY = 0;
+                int minY = h;
+                
+                for (int i = 0; i < calibrationData.size(); i++){
+                    if (calibrationData[i].x != -1){
+                        if (calibrationData[i].x > maxX) maxX = calibrationData[i].x;
+                        else if (calibrationData[i].x < minX) minX = calibrationData[i].x;
+                        if (calibrationData[i].y > maxY) maxY = calibrationData[i].y;
+                        else if (calibrationData[i].y < minY) minY = calibrationData[i].y;
+                    }
+                }
+                
+                //the opticon is taller than it is wide. We want it to take pixels formt the center of the image.
+                
+                
+                int opticonHeight = maxY - minY;
+                int opticonWidth = maxX - minX;
+                float theoreticalWidth = float(w) / float(h) * opticonHeight;
+                float padding = (theoreticalWidth - opticonWidth)*0.5;
+                
+                cout << "x: " << minX << " " << maxX << endl
+                     << "y: " << minY << " " << maxY << endl
+                     << "w: " << opticonWidth << " h: " << opticonHeight << "H: " << theoreticalWidth << endl;
+                
+                
+                
+                // scale and translate points
+                for (int i = 0; i < calibrationData.size(); i++){
+                    if (calibrationData[i].x != -1){
+                        calibrationData[i].x -= minX;
+                        
+                        calibrationData[i].x += padding;
+                        calibrationData[i].x /= opticonHeight;
+    //                            calibrationData[i].x /= theoreticalWidth;
+                        calibrationData[i].y -= minY;
+                        calibrationData[i].y /= opticonHeight;
+                    }
+                }
+                
+                for (int i = 0; i < calibrationData.size(); i++){
+                    strips[calibrationData[i].strip].calibrateLed(
+                        calibrationData[i].led,
+                        ofVec2f(calibrationData[i].x, calibrationData[i].y));
+                }
+                // save settings
+                saveSettings();
+                //done
+                bCalibrate = false;
+            }
+        }
+    }
+}
+
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
     
     if (key == 'c'){
-        calibrate = true;
+        bCalibrate = true;
         calibratingLed = 0;
         calibratingStrip = 0;
         calibrationData.clear();

@@ -22,6 +22,8 @@ public:
     
     void loadSettings();
     void saveSettings();
+    
+    void calibrate();
 
     void keyPressed(int key);
     void keyReleased(int key);
@@ -52,7 +54,7 @@ public:
     
     ofxCvContourFinder 	contourFinder;
 
-    bool calibrate;
+    bool bCalibrate;
     int calibratingLed, calibratingStrip;
     
     ofParameter<int> threshold;
