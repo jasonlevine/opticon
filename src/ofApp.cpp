@@ -30,7 +30,7 @@ void ofApp::setup(){
     calibrator.setup();
     calibrator.strips = &strips;
     calibrator.opcClient = &opcClient;
-    
+    bCalibrate = false;
     //setup gui
     calibrator.threshold.set("calib threshold", 200, 127, 254);
     maxLedBrightness.set("max LED brightness", 0.7, 0.1, 1.0);
@@ -40,7 +40,7 @@ void ofApp::setup(){
     gui.add(maxLedBrightness);
     gui.setPosition(0,0);
     
-    ofSetWindowShape(calibrator.w, calibrator.h);
+//    ofSetWindowShape(calibrator.w, calibrator.h);
     ofSetWindowTitle("OPTICON");
 }
 
@@ -85,8 +85,8 @@ void ofApp::draw(){
             strips[i].draw();
         }
         ofSetColor(255);
-        video.draw(ofGetWidth() - video.getWidth(), 0);
-        stripsVideo.draw(ofGetWidth() - video.getWidth(), video.getHeight());
+        video.draw(0, 0);
+        stripsVideo.draw(0, video.getHeight());
         gui.draw();
     }
 }
