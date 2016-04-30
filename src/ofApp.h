@@ -4,7 +4,6 @@
 
 
 #include "ofxGui.h"
-#include "ofxCsv.h"
 
 //#include "led-strip.h"
 #include "Calibrator.h"
@@ -43,7 +42,6 @@ public:
     Calibrator calibrator;
     bool bCalibrate;
     
-    wng::ofxCsv settings;
     
     //video
     ofVideoPlayer video;

@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		420CE7FBBE4FD40A291032C1 /* led-strip.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D11D1C1E5B0A79E3A210DC63 /* led-strip.cpp */; };
 		57DCD2B2CBF228ED49BFAE90 /* ofxNeoPixelGrid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1520FF511E88B7F9C672EAD0 /* ofxNeoPixelGrid.cpp */; };
-		900AC22E1CCD6D1700E9CC6F /* ofxCsv.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 900AC22C1CCD6D1700E9CC6F /* ofxCsv.cpp */; };
 		900AC2331CD41C0500E9CC6F /* Calibrator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 900AC2311CD41C0500E9CC6F /* Calibrator.cpp */; };
 		906800061CAA21D400F84C54 /* ofxCvColorImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9068FF271CAA21D400F84C54 /* ofxCvColorImage.cpp */; };
 		906800071CAA21D400F84C54 /* ofxCvContourFinder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9068FF2A1CAA21D400F84C54 /* ofxCvContourFinder.cpp */; };
@@ -75,8 +74,6 @@
 		3C98599F512D19BB57939D95 /* ofxNeoPixelGrid.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxNeoPixelGrid.h; path = ../../../addons/ofxOPC/src/ofxNeoPixelGrid.h; sourceTree = SOURCE_ROOT; };
 		3EFD920E7CFE6B6B1066E3BA /* ofxNeoPixelRing.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxNeoPixelRing.cpp; path = ../../../addons/ofxOPC/src/ofxNeoPixelRing.cpp; sourceTree = SOURCE_ROOT; };
 		5E31517C6C120F6DEBCCB9CC /* ofxNeoPixelRing.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxNeoPixelRing.h; path = ../../../addons/ofxOPC/src/ofxNeoPixelRing.h; sourceTree = SOURCE_ROOT; };
-		900AC22C1CCD6D1700E9CC6F /* ofxCsv.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ofxCsv.cpp; sourceTree = "<group>"; };
-		900AC22D1CCD6D1700E9CC6F /* ofxCsv.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxCsv.h; sourceTree = "<group>"; };
 		900AC2311CD41C0500E9CC6F /* Calibrator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Calibrator.cpp; sourceTree = "<group>"; };
 		900AC2321CD41C0500E9CC6F /* Calibrator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Calibrator.h; sourceTree = "<group>"; };
 		906800031CAA21D400F84C54 /* opencv.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = opencv.a; sourceTree = "<group>"; };
@@ -341,24 +338,6 @@
 			children = (
 			);
 			name = local_addons;
-			sourceTree = "<group>";
-		};
-		900AC22A1CCD6D1700E9CC6F /* ofxCsv */ = {
-			isa = PBXGroup;
-			children = (
-				900AC22B1CCD6D1700E9CC6F /* src */,
-			);
-			name = ofxCsv;
-			sourceTree = "<group>";
-		};
-		900AC22B1CCD6D1700E9CC6F /* src */ = {
-			isa = PBXGroup;
-			children = (
-				900AC22C1CCD6D1700E9CC6F /* ofxCsv.cpp */,
-				900AC22D1CCD6D1700E9CC6F /* ofxCsv.h */,
-			);
-			name = src;
-			path = ../../../addons/ofxCsv/src;
 			sourceTree = "<group>";
 		};
 		906800021CAA21D400F84C54 /* osx */ = {
@@ -854,7 +833,6 @@
 				9068FF241CAA21D400F84C54 /* ofxOpenCv */,
 				9068000E1CAA21D900F84C54 /* ofxNetwork */,
 				90F78C4D1CCABE630080D022 /* ofxGui */,
-				900AC22A1CCD6D1700E9CC6F /* ofxCsv */,
 			);
 			name = addons;
 			sourceTree = "<group>";
@@ -1003,7 +981,6 @@
 				90F78C631CCABE630080D022 /* ofxLabel.cpp in Sources */,
 				9068000A1CAA21D400F84C54 /* ofxCvHaarFinder.cpp in Sources */,
 				90F78C671CCABE630080D022 /* ofxToggle.cpp in Sources */,
-				900AC22E1CCD6D1700E9CC6F /* ofxCsv.cpp in Sources */,
 				57DCD2B2CBF228ED49BFAE90 /* ofxNeoPixelGrid.cpp in Sources */,
 				90F78C621CCABE630080D022 /* ofxGuiGroup.cpp in Sources */,
 				906800061CAA21D400F84C54 /* ofxCvColorImage.cpp in Sources */,
