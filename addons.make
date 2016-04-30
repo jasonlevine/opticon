@@ -1,1 +1,4 @@
 ofxOPC
+ofxOpenCv
+ofxGui
+ofxNetwork

@@ -9,7 +9,7 @@
 #pragma once
 #include "ofMain.h"
 #include "ofxOpenCv.h"
-#include "ofxOpc.h"
+#include "ofxOPC.h"
 #include "led-strip.h"
 
 struct LEDtoPixel {
