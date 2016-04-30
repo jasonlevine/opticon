@@ -25,6 +25,9 @@ public:
     
     void start();
     bool calibrate();
+    void turnOnLED();
+    void contourToPixel();
+    void transformPoints();
     
 //private:
     int w; //cam width
@@ -39,14 +42,11 @@ public:
     
     ofxCvContourFinder 	contourFinder;
 
-    
     vector<ledStrip> * strips;
     int calibratingLed, calibratingStrip;
     vector<LEDtoPixel> calibrationData;
     
-    
     ofParameter<int> threshold;
-    
     
     ofxOPC *opcClient;
 };

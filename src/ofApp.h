@@ -47,6 +47,7 @@ public:
     
     //video
     ofVideoPlayer video;
+    ofImage stripsVideo;
     
     //gui
     ofxPanel gui;

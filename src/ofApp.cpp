@@ -11,6 +11,13 @@ void ofApp::setup(){
     video.load("renders/small movie 07.mp4");
     video.play();
     
+    stripsVideo.allocate(video.getWidth(), video.getHeight(), OF_IMAGE_COLOR);
+    for (int x = 0; x < stripsVideo.getWidth(); x++) {
+        for (int y = 0; y < stripsVideo.getHeight(); y++){
+            stripsVideo.setColor(x, y, ofColor(0));
+        }
+    }
+    
     //setup strips
     for (int i = 0; i < NUMSTRIPS; i++){
         ledStrip strip;
@@ -18,7 +25,7 @@ void ofApp::setup(){
         strips.push_back(strip);
     }
     
-    loadSettings();
+//    loadSettings();
 
     calibrator.setup();
     calibrator.strips = &strips;
@@ -51,7 +58,15 @@ void ofApp::update(){
         if (vidPix.size()){
             for (int i = 0; i < strips.size(); i++){
                 strips[i].update(vidPix, maxLedBrightness);
+                
+                //awkward!
+                for (int j = 0; j < strips[i].pixels.size(); j++){
+                    stripsVideo.setColor(strips[i].pixelToLed[j].x * video.getWidth(),
+                                         strips[i].pixelToLed[j].y * video.getHeight(),
+                                         strips[i].pixels[j]);
+                }
             }
+            stripsVideo.update();
         }
         
         for (int i = 0; i < strips.size(); i++) opcClient.writeChannel(i+1, strips[i].pixels);
@@ -69,7 +84,9 @@ void ofApp::draw(){
         for (int i = 0; i < strips.size(); i++){
             strips[i].draw();
         }
+        ofSetColor(255);
         video.draw(ofGetWidth() - video.getWidth(), 0);
+        stripsVideo.draw(ofGetWidth() - video.getWidth(), video.getHeight());
         gui.draw();
     }
 }
@@ -178,4 +195,11 @@ void ofApp::dragEvent(ofDragInfo dragInfo){
     
     video.load(dragInfo.files[0]);
     video.play();
+    
+    stripsVideo.allocate(video.getWidth(), video.getHeight(), OF_IMAGE_COLOR);
+    for (int x = 0; x < stripsVideo.getWidth(); x++) {
+        for (int y = 0; y < stripsVideo.getHeight(); y++){
+            stripsVideo.setColor(x, y, ofColor(0));
+        }
+    }
 }
