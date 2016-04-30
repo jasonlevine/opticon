@@ -1,16 +1,14 @@
 #pragma once
 
 #include "ofMain.h"
-#include "ofxOpenCv.h"
-#include "led-strip.h"
-#include "ofxOpc.h"
+
+
 #include "ofxGui.h"
 #include "ofxCsv.h"
 
-struct LEDtoPixel {
-    int strip, led;
-    float x, y;
-};
+//#include "led-strip.h"
+#include "Calibrator.h"
+
 
 class ofApp : public ofBaseApp{
 
@@ -38,39 +36,18 @@ public:
     void gotMessage(ofMessage msg);
 
     ofxOPC opcClient;
-    
-    vector<ledStrip> strips;
-    vector<LEDtoPixel> calibrationData;
-    //calibration
-    int w; //cam width
-    int h; //cam height
-    
-    ofVideoGrabber grabber;
-    ofxCvColorImage			colorImg;
-    
-    ofxCvGrayscaleImage 	grayImage;
-    ofxCvGrayscaleImage 	grayBg;
-    ofxCvGrayscaleImage 	grayDiff;
-    
-    ofxCvContourFinder 	contourFinder;
 
-    bool bCalibrate;
-    int calibratingLed, calibratingStrip;
-    
-    ofParameter<int> threshold;
+    vector<ledStrip> strips;
     ofParameter<float> maxLedBrightness;
     
-    wng::ofxCsv settings;
+    Calibrator calibrator;
+    bool bCalibrate;
     
+    wng::ofxCsv settings;
     
     //video
     ofVideoPlayer video;
     
     //gui
     ofxPanel gui;
-    
-    
-
-    
-    //
 };
