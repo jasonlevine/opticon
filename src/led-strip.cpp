@@ -10,7 +10,7 @@
 
 
 void ledStrip::setup(int num){
-    for (int i = 0; i < num; i++){
+    for (unsigned int i = 0; i < num; i++){
         pixels.push_back(ofColor(0));
         pixelToLed.push_back(ofVec2f(0.5,0.5));
     }
@@ -18,7 +18,7 @@ void ledStrip::setup(int num){
 
 //TODO: make mode where video is cropped and centered instead of stretched
 void ledStrip::update(ofPixels &framePix, float maxBrightness){
-    for (int i = 0; i < pixels.size(); i++){
+    for (unsigned int i = 0; i < pixels.size(); i++){
         if (pixelToLed[i].x != -1) { //oh jesus its late and i just want it to work
             int x = pixelToLed[i].x * framePix.getWidth();
             int y = pixelToLed[i].y * framePix.getHeight();
@@ -43,13 +43,13 @@ void ledStrip::setLed(int led, ofColor color){
 }
 
 void ledStrip::blackout(){
-    for (int i = 0; i < pixels.size(); i++){
+    for (unsigned int i = 0; i < pixels.size(); i++){
         pixels[i].set(0);
     }
 }
 
 void ledStrip::setLeds(ofColor color){
-    for (int i = 0; i < pixels.size(); i++){
+    for (unsigned int i = 0; i < pixels.size(); i++){
         pixels[i].set(color);
     }
 }

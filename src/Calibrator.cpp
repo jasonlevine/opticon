@@ -73,11 +73,11 @@ bool Calibrator::calibrate(){
 }
 
 void Calibrator::turnOnLED(){
-    for (int i = 0; i < strips->size(); i++) strips->at(i).setLeds(ofColor(0));
+    for (unsigned int i = 0; i < strips->size(); i++) strips->at(i).setLeds(ofColor(0));
 
     strips->at(calibratingStrip).setLed(calibratingLed, ofColor(250));
 
-    for (int i = 0; i < strips->size(); i++) opcClient->writeChannel(i+1, strips->at(i).pixels);
+    for (unsigned int i = 0; i < strips->size(); i++) opcClient->writeChannel(i+1, strips->at(i).pixels);
 }
 
 void Calibrator::contourToPixel(){
@@ -122,7 +122,7 @@ void Calibrator::transformPoints(){
     int maxY = 0;
     int minY = h;
 
-    for (int i = 0; i < calibrationData.size(); i++){
+    for (unsigned int i = 0; i < calibrationData.size(); i++){
         if (calibrationData[i].x != -1){
             if (calibrationData[i].x > maxX) maxX = calibrationData[i].x;
             else if (calibrationData[i].x < minX) minX = calibrationData[i].x;
@@ -147,7 +147,7 @@ void Calibrator::transformPoints(){
 
 
     // scale and translate points
-    for (int i = 0; i < calibrationData.size(); i++){
+    for (unsigned int i = 0; i < calibrationData.size(); i++){
         if (calibrationData[i].x != -1){
             calibrationData[i].x -= minX;
             
@@ -159,7 +159,7 @@ void Calibrator::transformPoints(){
         }
     }
 
-    for (int i = 0; i < calibrationData.size(); i++){
+    for (unsigned int i = 0; i < calibrationData.size(); i++){
         strips->at(calibrationData[i].strip).calibrateLed(
             calibrationData[i].led,
             ofVec2f(calibrationData[i].x, calibrationData[i].y));
@@ -173,7 +173,7 @@ void Calibrator::transformPoints(){
 //    int start = 0;
 //    int end = 0;
 //    ofVec2f lastPixel = ofVec2f(0.4, 0.4); // late night programming hack......
-//    for (int i = 0; i < strips.size() * NUMLEDS; i++){
+//    for (unsigned int i = 0; i < strips.size() * NUMLEDS; i++){
 //        ofVec2f pixel = ofVec2f(settings.getFloat(i, 2), settings.getFloat(i,3));
 //        if (pixel == uncalibrated && lastPixel != uncalibrated) start = i;
 //        else if (pixel != uncalibrated && lastPixel == uncalibrated) end = i;

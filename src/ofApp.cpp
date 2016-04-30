@@ -12,14 +12,14 @@ void ofApp::setup(){
     video.play();
     
     stripsVideo.allocate(video.getWidth(), video.getHeight(), OF_IMAGE_COLOR);
-    for (int x = 0; x < stripsVideo.getWidth(); x++) {
-        for (int y = 0; y < stripsVideo.getHeight(); y++){
+    for (unsigned int x = 0; x < stripsVideo.getWidth(); x++) {
+        for (unsigned int y = 0; y < stripsVideo.getHeight(); y++){
             stripsVideo.setColor(x, y, ofColor(0));
         }
     }
     
     //setup strips
-    for (int i = 0; i < NUMSTRIPS; i++){
+    for (unsigned int i = 0; i < NUMSTRIPS; i++){
         ledStrip strip;
         strip.setup(NUMLEDS);
         strips.push_back(strip);
@@ -56,7 +56,7 @@ void ofApp::update(){
         ofPixels vidPix = video.getPixels();
         
         if (vidPix.size()){
-            for (int i = 0; i < strips.size(); i++){
+            for (unsigned int i = 0; i < strips.size(); i++){
                 strips[i].update(vidPix, maxLedBrightness);
                 
                 //awkward!
@@ -69,7 +69,7 @@ void ofApp::update(){
             stripsVideo.update();
         }
         
-        for (int i = 0; i < strips.size(); i++) opcClient.writeChannel(i+1, strips[i].pixels);
+        for (unsigned int i = 0; i < strips.size(); i++) opcClient.writeChannel(i+1, strips[i].pixels);
     }
 }
 
@@ -81,7 +81,7 @@ void ofApp::draw(){
     }
     else {
 //        grayImage.draw(0,0);
-        for (int i = 0; i < strips.size(); i++){
+        for (unsigned int i = 0; i < strips.size(); i++){
             strips[i].draw();
         }
         ofSetColor(255);
@@ -93,21 +93,21 @@ void ofApp::draw(){
 
 //--------------------------------------------------------------
 void ofApp::exit(){
-    for (int i = 0; i < strips.size(); i++){
+    for (unsigned int i = 0; i < strips.size(); i++){
         strips[i].blackout();
     }
 }
 
 //--------------------------------------------------------------
 void ofApp::loadSettings(){
-    settings.loadFile(ofToDataPath("settings.csv"));
-    for (int i = 0; i < strips.size() * NUMLEDS; i++){
-        int strip = settings.getInt(i, 0);
-        int led = settings.getInt(i, 1);
-        ofVec2f pixel = ofVec2f(settings.getFloat(i, 2), settings.getFloat(i,3));
-        
-        strips[strip].calibrateLed(led, pixel);
-    }
+//    settings.loadFile(ofToDataPath("settings.csv"));
+//    for (unsigned int i = 0; i < strips.size() * NUMLEDS; i++){
+//        int strip = settings.getInt(i, 0);
+//        int led = settings.getInt(i, 1);
+//        ofVec2f pixel = ofVec2f(settings.getFloat(i, 2), settings.getFloat(i,3));
+//        
+//        strips[strip].calibrateLed(led, pixel);
+//    }
 }
  //--------------------------------------------------------------
 void ofApp::saveSettings(){
