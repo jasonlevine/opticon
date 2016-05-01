@@ -4,8 +4,6 @@
 
 
 #include "ofxGui.h"
-//#include "ofxCsv.h"
-//#include "led-strip.h"
 #include "Calibrator.h"
 
 
@@ -42,7 +40,6 @@ public:
     Calibrator calibrator;
     bool bCalibrate;
     
-//    ofxCsv settings;
     //video
     ofVideoPlayer video;
     ofImage stripsVideo;

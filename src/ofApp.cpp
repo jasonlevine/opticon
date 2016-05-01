@@ -46,10 +46,10 @@ void ofApp::setup(){
 
 //--------------------------------------------------------------
 void ofApp::update(){
-    calibrator.update();
+//    calibrator.update();
     
     if (bCalibrate){
-        bCalibrate = calibrator.calibrate();
+  //      bCalibrate = calibrator.calibrate();
     }
     else {
         video.update();
@@ -75,7 +75,7 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-    calibrator.draw();
+    //calibrator.draw();
     if (bCalibrate) {
         //colorImg.draw(0,0);
     }
