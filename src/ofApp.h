@@ -42,7 +42,7 @@ public:
     Calibrator calibrator;
     bool bCalibrate;
     
-    ofxCsv settings;
+    wng::ofxCsv settings;
     //video
     ofVideoPlayer video;
     ofImage stripsVideo;
