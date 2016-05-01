@@ -46,10 +46,10 @@ void ofApp::setup(){
 
 //--------------------------------------------------------------
 void ofApp::update(){
-//    calibrator.update();
+    calibrator.update();
     
     if (bCalibrate){
-  //      bCalibrate = calibrator.calibrate();
+        bCalibrate = calibrator.calibrate();
     }
     else {
         video.update();
@@ -75,7 +75,7 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-    //calibrator.draw();
+    calibrator.draw();
     if (bCalibrate) {
         //colorImg.draw(0,0);
     }
@@ -93,6 +93,8 @@ void ofApp::draw(){
 
 //--------------------------------------------------------------
 void ofApp::exit(){
+    saveSettings();
+    
     for (unsigned int i = 0; i < strips.size(); i++){
         strips[i].blackout();
     }
@@ -100,15 +102,37 @@ void ofApp::exit(){
 
 //--------------------------------------------------------------
 void ofApp::loadSettings(){
-    ofBuffer csvBuffer = ofBufferFromFile("settings.csv");
-    while (! csvBuffer.isLastLine()) {
-        string line = csvBuffer.getNextLine();
-        vector<string> chunks = ofSplitString(line, ",");
-        int strip = ofToInt(chunks[0]);
-        int led = ofToInt(chunks[1]);
-        ofVec2f pixel = ofVec2f(ofToFloat(chunks[2]), ofToFloat(chunks[3]));
-        strips[strip].calibrateLed(led, pixel);
+    ofXml settings;
+    settings.load("settings.xml");
+    settings.setTo("root");
+    
+    settings.setTo("strip[0]");
+    for (int i = 0; i < strips.size(); i++){
+        settings.setTo("led[0]");
+        for (int j = 0; j < 60; j++){
+            ofVec2f pixel;
+            pixel.x = settings.getValue<float>("X");
+            pixel.y = settings.getValue<float>("Y");
+            cout << i << " " << j << " " << pixel << endl;
+            strips[i].calibrateLed(j, pixel);
+            
+            settings.setToSibling();
+        }
+        settings.setToParent();
+        settings.setToSibling();
     }
+    
+    
+    
+    //    ofBuffer csvBuffer = ofBufferFromFile("settings.csv");
+//    while (! csvBuffer.isLastLine()) {
+//        string line = csvBuffer.getNextLine();
+//        vector<string> chunks = ofSplitString(line, ",");
+//        int strip = ofToInt(chunks[0]);
+//        int led = ofToInt(chunks[1]);
+//        ofVec2f pixel = ofVec2f(ofToFloat(chunks[2]), ofToFloat(chunks[3]));
+//        strips[strip].calibrateLed(led, pixel);
+//    }
     
 //    settings.loadFile(ofToDataPath("settings.csv"));
 //    for (unsigned int i = 0; i < strips.size() * NUMLEDS; i++){
@@ -129,6 +153,27 @@ void ofApp::saveSettings(){
 //        settings.setFloat(row, 3, calibrationData[i].y);
 //    }
 //    settings.saveFile(ofToDataPath("settings.csv"));
+    
+    
+    ofXml settings;
+    settings.addChild("root");
+    settings.setTo("root");
+    for (unsigned int i = 0; i < strips.size(); i++){
+        ofXml strip;
+        strip.addChild("strip");
+        strip.setTo("strip");
+        for (int j = 0; j < strips[i].pixelToLed.size(); j++){
+            ofXml led;
+            led.addChild("led");
+            led.setTo("led");
+            led.addValue("X", strips[i].pixelToLed[j].x);
+            led.addValue("Y", strips[i].pixelToLed[j].y);
+            strip.addXml(led);
+        }
+        settings.addXml(strip);
+    }
+    
+    settings.save("settings.xml");
 }
 
 
