@@ -100,24 +100,24 @@ void ofApp::exit(){
 
 //--------------------------------------------------------------
 void ofApp::loadSettings(){
-//    ofBuffer dataBuffer = ofBufferFromFile("setting.csv");
-//    
-//    for(auto& line : dataBuffer.getLines()) {
-//        vector<string> chunks = ofSplitString(line, ",");
-//        for (int c = 0; c < chunks.size(); c++){
-//            cout << chunks[c] << " ";
-//        }
-//        cout << endl;
-//    }
+    ofBuffer dataBuffer = ofBufferFromFile("settings.csv");
     
-    settings.loadFile(ofToDataPath("settings.csv"));
-    for (unsigned int i = 0; i < strips.size() * NUMLEDS; i++){
-        int strip = settings.getInt(i, 0);
-        int led = settings.getInt(i, 1);
-        ofVec2f pixel = ofVec2f(settings.getFloat(i, 2), settings.getFloat(i,3));
-        
+    for(auto& line : dataBuffer.getLines()) {
+        vector<string> chunks = ofSplitString(line, ",");
+        int strip = ofToInt(chunks[0]);
+        int led = ofToInt(chunks[1]);
+        ofVec2f pixel = ofVec2f(ofToFloat(chunks[2]), ofToFloat(chunks[3]));
         strips[strip].calibrateLed(led, pixel);
     }
+    
+//    settings.loadFile(ofToDataPath("settings.csv"));
+//    for (unsigned int i = 0; i < strips.size() * NUMLEDS; i++){
+//        int strip = settings.getInt(i, 0);
+//        int led = settings.getInt(i, 1);
+//        ofVec2f pixel = ofVec2f(settings.getFloat(i, 2), settings.getFloat(i,3));
+//        
+//        strips[strip].calibrateLed(led, pixel);
+//    }
 }
  //--------------------------------------------------------------
 void ofApp::saveSettings(){
