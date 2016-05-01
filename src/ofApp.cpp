@@ -100,9 +100,9 @@ void ofApp::exit(){
 
 //--------------------------------------------------------------
 void ofApp::loadSettings(){
-    ofBuffer dataBuffer = ofBufferFromFile("settings.csv");
-    
-    for(auto& line : dataBuffer.getLines()) {
+    ofBuffer csvBuffer = ofBufferFromFile("settings.csv");
+    while (! csvBuffer.isLastLine()) {
+        string line = csvBuffer.getNextLine();
         vector<string> chunks = ofSplitString(line, ",");
         int strip = ofToInt(chunks[0]);
         int led = ofToInt(chunks[1]);
